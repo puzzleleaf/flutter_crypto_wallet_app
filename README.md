@@ -13,6 +13,6 @@ https://whollet.io/
 
 ▶Packages<br>
 
-<b>flutter_bloc</b>    
-A flutter plugin for adapting screen and font size.
+<b>flutter_screenutil</b>    
+A flutter plugin for adapting screen and font size.    
 https://pub.dev/packages/flutter_screenutil
