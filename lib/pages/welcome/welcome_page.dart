@@ -1,3 +1,4 @@
+import 'package:crypto_wallet/pages/start/start_page.dart';
 import 'package:crypto_wallet/utils/items.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,50 +9,50 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, width: 375, height: 812, allowFontScaling: false);
-    return Scaffold(
-      backgroundColor: Color(0xffe0e9f8),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        actions: <Widget>[
-          Container(
-            alignment: Alignment.center,
-            width: ScreenUtil().setWidth(45),
-            child: InkWell(
-              onTap: () {},
-              child: Text(
-                'Skip',
-                style: TextStyle(
-                  color: Color(0xff347af0),
-                  fontWeight: FontWeight.bold,
-                  fontSize: ScreenUtil().setSp(15),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Color(0xffe0e9f8),
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+          actions: <Widget>[
+            Container(
+              alignment: Alignment.center,
+              width: ScreenUtil().setWidth(45),
+              child: InkWell(
+                onTap: () {},
+                child: Text(
+                  'Skip',
+                  style: TextStyle(
+                    color: Color(0xff347af0),
+                    fontWeight: FontWeight.bold,
+                    fontSize: ScreenUtil().setSp(15),
+                  ),
                 ),
               ),
-            ),
-          )
-        ],
-      ),
-      body: PageView.builder(
-        physics: NeverScrollableScrollPhysics(),
-        controller: _pageViewController,
-        itemBuilder: (context, index) {
-          return Column(
-            children: <Widget>[
-              Image.asset(
-                Items.welcomeData[index]['image'],
-                width: ScreenUtil().setWidth(326),
-                height: ScreenUtil().setHeight(240),
-              ),
-              Expanded(
-                child: Container(
-                  width: ScreenUtil().setWidth(375),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(25),
-                        topRight: Radius.circular(25),
-                      )),
-                  child: SafeArea(
+            )
+          ],
+        ),
+        body: PageView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          controller: _pageViewController,
+          itemBuilder: (context, index) {
+            return Column(
+              children: <Widget>[
+                Image.asset(
+                  Items.welcomeData[index]['image'],
+                  width: ScreenUtil().setWidth(326),
+                  height: ScreenUtil().setHeight(240),
+                ),
+                Expanded(
+                  child: Container(
+                    width: ScreenUtil().setWidth(375),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(25),
+                          topRight: Radius.circular(25),
+                        )),
                     child: Column(
                       children: <Widget>[
                         Padding(
@@ -102,7 +103,13 @@ class WelcomePage extends StatelessWidget {
                               _pageViewController.animateToPage(index + 1,
                                   duration: Duration(milliseconds: 500),
                                   curve: Curves.ease);
-                            } else {}
+                            } else {
+                              Navigator.pushReplacement(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return StartPage();
+                                },
+                              ));
+                            }
                           },
                           color: index != 3
                               ? Colors.transparent
@@ -132,12 +139,12 @@ class WelcomePage extends StatelessWidget {
                       ],
                     ),
                   ),
-                ),
-              )
-            ],
-          );
-        },
-        itemCount: 4,
+                )
+              ],
+            );
+          },
+          itemCount: 4,
+        ),
       ),
     );
   }
