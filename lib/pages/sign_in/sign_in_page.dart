@@ -1,5 +1,8 @@
+import 'package:crypto_wallet/application/auth/sign_in_form/bloc/sign_in_form_bloc.dart';
+import 'package:crypto_wallet/injection.dart';
 import 'package:crypto_wallet/pages/sign_in/widgets/sign_in_form.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SignInPage extends StatelessWidget {
@@ -34,7 +37,10 @@ class SignInPage extends StatelessWidget {
                       width: ScreenUtil().setWidth(324),
                     ),
                     Expanded(
-                      child: SignInForm(),
+                      child: BlocProvider(
+                        create: (_) => getIt<SignInFormBloc>(),
+                        child: SignInForm(),
+                      ),
                     ),
                   ],
                 ),

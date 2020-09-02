@@ -58,7 +58,7 @@ class StartPage extends StatelessWidget {
                   height: 40,
                   alignment: Alignment.center,
                   child: Text(
-                    "Create Account",
+                    "Login Start",
                     style: TextStyle(
                       color: Color(0xff347AF0),
                     ),
