@@ -26,18 +26,18 @@ class FirebaseAuthFacade extends IAuthFacade {
 
       return FirebaseAuthResult(
         isSuccess: true,
-        authFailure: AuthFailureOrSuccess.success(),
+        authFailureOrSuccess: AuthFailureOrSuccess.success(),
       );
     } on PlatformException catch (e) {
       if (e.code == "ERROR_EMAIL_ALREADY_IN_USE") {
         return FirebaseAuthResult(
           isSuccess: false,
-          authFailure: AuthFailureOrSuccess.emailAlreadyInUse(),
+          authFailureOrSuccess: AuthFailureOrSuccess.emailAlreadyInUse(),
         );
       } else {
         return FirebaseAuthResult(
           isSuccess: false,
-          authFailure: AuthFailureOrSuccess.serverError(),
+          authFailureOrSuccess: AuthFailureOrSuccess.serverError(),
         );
       }
     }
@@ -52,18 +52,18 @@ class FirebaseAuthFacade extends IAuthFacade {
 
       return FirebaseAuthResult(
         isSuccess: true,
-        authFailure: AuthFailureOrSuccess.success(),
+        authFailureOrSuccess: AuthFailureOrSuccess.success(),
       );
     } on PlatformException catch (e) {
       if (e.code == "ERROR_INVALID_EMAIL" || e.code == "ERROR_WRONG_PASSWORD") {
         return FirebaseAuthResult(
           isSuccess: false,
-          authFailure: AuthFailureOrSuccess.invalidEmailAndPassword(),
+          authFailureOrSuccess: AuthFailureOrSuccess.invalidEmailAndPassword(),
         );
       } else {
         return FirebaseAuthResult(
           isSuccess: false,
-          authFailure: AuthFailureOrSuccess.serverError(),
+          authFailureOrSuccess: AuthFailureOrSuccess.serverError(),
         );
       }
     }

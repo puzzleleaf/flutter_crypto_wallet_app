@@ -28,11 +28,13 @@ class SignUpFormBloc extends Bloc<SignUpFormEvent, SignUpFormState> {
       emailChange: (e) async* {
         yield state.copyWith(
           emailAddress: e.email,
+          authFailureOrSuccess: AuthFailureOrSuccess.none(),
         );
       },
       passwordChange: (e) async* {
         yield state.copyWith(
           password: e.password,
+          authFailureOrSuccess: AuthFailureOrSuccess.none(),
         );
       },
       registerWithEmailAndPassword: (e) async* {
@@ -43,6 +45,7 @@ class SignUpFormBloc extends Bloc<SignUpFormEvent, SignUpFormState> {
           yield state.copyWith(
             showErrorMessages: false,
             isSubmitting: true,
+            authFailureOrSuccess: AuthFailureOrSuccess.none(),
           );
 
           var result = await _authFacade.registerWithEmailAndPassword(
@@ -50,11 +53,12 @@ class SignUpFormBloc extends Bloc<SignUpFormEvent, SignUpFormState> {
 
           yield state.copyWith(
             isSubmitting: false,
-            authFailure: result.authFailure,
+            authFailureOrSuccess: result.authFailureOrSuccess,
           );
         } else {
           yield state.copyWith(
             showErrorMessages: true,
+            authFailureOrSuccess: AuthFailureOrSuccess.none(),
           );
         }
       },

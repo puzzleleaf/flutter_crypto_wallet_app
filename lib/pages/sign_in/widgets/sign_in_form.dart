@@ -1,5 +1,6 @@
 import 'package:crypto_wallet/application/auth/sign_in_form/bloc/sign_in_form_bloc.dart';
 import 'package:crypto_wallet/domain/core/value_validators.dart';
+import 'package:crypto_wallet/infrastructure/auth/auth_failure_or_success.dart';
 import 'package:crypto_wallet/pages/sign_up/sign_up_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +10,27 @@ class SignInForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<SignInFormBloc, SignInFormState>(
       listener: (context, state) {
-        print(state);
+        if (state.authFailureOrSuccess == AuthFailureOrSuccess.success()) {
+          showSnackBar(context, SnackBar(
+            backgroundColor: Colors.blue,
+            content: Text('Success'),
+          ));
+        } else if (state.authFailureOrSuccess == AuthFailureOrSuccess.emailAlreadyInUse()) {
+          showSnackBar(context, SnackBar(
+            backgroundColor: Colors.red,
+            content: Text('Email Already In Use'),
+          ));
+        } else if (state.authFailureOrSuccess == AuthFailureOrSuccess.invalidEmailAndPassword()) {
+          showSnackBar(context, SnackBar(
+            backgroundColor: Colors.red,
+            content: Text('InvalidEmailAndPassword'),
+          ));
+        } else if (state.authFailureOrSuccess == AuthFailureOrSuccess.serverError()) {
+          showSnackBar(context, SnackBar(
+            backgroundColor: Colors.red,
+            content: Text('Server Error'),
+          ));
+        }
       },
       builder: (context, state) {
         return Container(
@@ -84,6 +105,7 @@ class SignInForm extends StatelessWidget {
                   children: <Widget>[
                     FlatButton(
                       onPressed: () {
+                        FocusScope.of(context).unfocus();
                         context.bloc<SignInFormBloc>().add(
                             SignInFormEvent.signInWithEmailAndPassword());
                       },
@@ -121,7 +143,7 @@ class SignInForm extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-
+                            FocusScope.of(context).unfocus();
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
                               return SignUpPage();
@@ -146,4 +168,9 @@ class SignInForm extends StatelessWidget {
       },
     );
   }
+
+  void showSnackBar(BuildContext context, Widget snackBar) {
+    Scaffold.of(context).showSnackBar(snackBar);
+  }
+
 }

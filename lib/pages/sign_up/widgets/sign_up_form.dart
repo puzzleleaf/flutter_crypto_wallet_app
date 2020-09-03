@@ -1,5 +1,6 @@
 import 'package:crypto_wallet/application/auth/sign_up_form/bloc/sign_up_form_bloc.dart';
 import 'package:crypto_wallet/domain/core/value_validators.dart';
+import 'package:crypto_wallet/infrastructure/auth/auth_failure_or_success.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,7 +9,27 @@ class SignUpForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<SignUpFormBloc, SignUpFormState>(
       listener: (context, state) {
-        print(state);
+        if (state.authFailureOrSuccess == AuthFailureOrSuccess.success()) {
+          showSnackBar(context, SnackBar(
+            backgroundColor: Colors.blue,
+            content: Text('Success'),
+          ));
+        } else if (state.authFailureOrSuccess == AuthFailureOrSuccess.emailAlreadyInUse()) {
+          showSnackBar(context, SnackBar(
+            backgroundColor: Colors.red,
+            content: Text('Email Already In Use'),
+          ));
+        } else if (state.authFailureOrSuccess == AuthFailureOrSuccess.invalidEmailAndPassword()) {
+          showSnackBar(context, SnackBar(
+            backgroundColor: Colors.red,
+            content: Text('InvalidEmailAndPassword'),
+          ));
+        } else if (state.authFailureOrSuccess == AuthFailureOrSuccess.serverError()) {
+          showSnackBar(context, SnackBar(
+            backgroundColor: Colors.red,
+            content: Text('Server Error'),
+          ));
+        }
       },
       builder: (context, state) {
         return Container(
@@ -71,6 +92,7 @@ class SignUpForm extends StatelessWidget {
                   children: <Widget>[
                     FlatButton(
                       onPressed: () {
+                        FocusScope.of(context).unfocus();
                         context.bloc<SignUpFormBloc>().add(
                             SignUpFormEvent.registerWithEmailAndPassword());
                       },
@@ -128,5 +150,9 @@ class SignUpForm extends StatelessWidget {
         );
       },
     );
+  }
+
+  void showSnackBar(BuildContext context, Widget snackBar) {
+    Scaffold.of(context).showSnackBar(snackBar);
   }
 }
