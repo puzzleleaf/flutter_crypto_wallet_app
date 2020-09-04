@@ -23,7 +23,7 @@ class SignInForm extends StatelessWidget {
         } else if (state.authFailureOrSuccess == AuthFailureOrSuccess.invalidEmailAndPassword()) {
           showSnackBar(context, SnackBar(
             backgroundColor: Colors.red,
-            content: Text('InvalidEmailAndPassword'),
+            content: Text('Invalid Email And Password'),
           ));
         } else if (state.authFailureOrSuccess == AuthFailureOrSuccess.serverError()) {
           showSnackBar(context, SnackBar(
@@ -31,7 +31,7 @@ class SignInForm extends StatelessWidget {
             content: Text('Server Error'),
           ));
         }
-      },
+       },
       builder: (context, state) {
         return Container(
           padding: const EdgeInsets.only(
@@ -51,16 +51,16 @@ class SignInForm extends StatelessWidget {
             autovalidate: state.showErrorMessages,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+              children: <Widget>[
                 Column(
                   children: <Widget>[
                     TextFormField(
-                      autofocus: false,
                       decoration: const InputDecoration(
                         prefixIcon: Icon(Icons.email),
                         labelText: 'Email address',
                       ),
                       autocorrect: false,
+                      autofocus: false,
                       onChanged: (value) => context
                           .bloc<SignInFormBloc>()
                           .add(SignInFormEvent.emailChange(value)),
@@ -69,34 +69,35 @@ class SignInForm extends StatelessWidget {
                           ? null
                           : "Invalid Email",
                     ),
-                    const SizedBox(height: 10),
                     TextFormField(
-                      autofocus: false,
                       decoration: const InputDecoration(
                         prefixIcon: Icon(Icons.lock),
                         labelText: 'Password',
                       ),
                       autocorrect: false,
+                      autofocus: false,
+                      obscureText: true,
                       onChanged: (value) => context
                           .bloc<SignInFormBloc>()
                           .add(SignInFormEvent.passwordChange(value)),
-                      obscureText: true,
                       validator: (_) => validatePassword(
                               context.bloc<SignInFormBloc>().state.password)
                           ? null
                           : 'Short Password',
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(
+                      height: 8,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         Text(
-                          'Forgot your password?',
+                          'Forget your password?',
                           style: TextStyle(
                             color: Color(0xff347af0),
                             fontWeight: FontWeight.bold,
                           ),
-                        ),
+                        )
                       ],
                     ),
                   ],
@@ -106,12 +107,13 @@ class SignInForm extends StatelessWidget {
                     FlatButton(
                       onPressed: () {
                         FocusScope.of(context).unfocus();
-                        context.bloc<SignInFormBloc>().add(
-                            SignInFormEvent.signInWithEmailAndPassword());
+                        context
+                            .bloc<SignInFormBloc>()
+                            .add(SignInFormEvent.signInWithEmailAndPassword());
                       },
-                      color: Color(0xff347AF0),
+                      color: Color(0xff347af0),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
+                        borderRadius: BorderRadius.circular(18),
                         side: BorderSide(
                           color: Color(0xff347af0),
                         ),
@@ -121,7 +123,7 @@ class SignInForm extends StatelessWidget {
                         height: 40,
                         alignment: Alignment.center,
                         child: Text(
-                          "Login",
+                          'Login',
                           style: TextStyle(
                             color: Colors.white,
                           ),
@@ -152,11 +154,11 @@ class SignInForm extends StatelessWidget {
                           child: Text(
                             'Sign Up?',
                             style: TextStyle(
-                              color: Color(0xff347AF0),
+                              color: Color(0xff347af0),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                        ),
+                        )
                       ],
                     ),
                   ],
@@ -172,5 +174,4 @@ class SignInForm extends StatelessWidget {
   void showSnackBar(BuildContext context, Widget snackBar) {
     Scaffold.of(context).showSnackBar(snackBar);
   }
-
 }

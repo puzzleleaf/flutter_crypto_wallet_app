@@ -3,7 +3,6 @@ import 'package:crypto_wallet/injection.dart';
 import 'package:crypto_wallet/pages/sign_in/widgets/sign_in_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SignInPage extends StatelessWidget {
   @override
@@ -11,8 +10,7 @@ class SignInPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color(0xffE0E9F8),
-        centerTitle: true,
+        backgroundColor: Color(0xffe0e9f8),
         title: Text(
           'Welcome Back!',
           style: TextStyle(
@@ -24,20 +22,15 @@ class SignInPage extends StatelessWidget {
       ),
       body: SafeArea(
         child: Container(
-          width: MediaQuery.of(context).size.width,
-          color: Color(0xffE0E9F8),
+          color: Color(0xffe0e9f8),
           child: CustomScrollView(
             reverse: true,
             slivers: [
               SliverFillRemaining(
                 hasScrollBody: false,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    Image.asset(
-                      'assets/images/login.png',
-                      width: ScreenUtil().setWidth(324),
-                    ),
+                    Image.asset('assets/images/login.png'),
                     Expanded(
                       child: BlocProvider(
                         create: (_) => getIt<SignInFormBloc>(),

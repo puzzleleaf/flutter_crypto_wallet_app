@@ -9,6 +9,7 @@ class SignUpForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<SignUpFormBloc, SignUpFormState>(
       listener: (context, state) {
+        print(state);
         if (state.authFailureOrSuccess == AuthFailureOrSuccess.success()) {
           showSnackBar(context, SnackBar(
             backgroundColor: Colors.blue,
@@ -22,7 +23,7 @@ class SignUpForm extends StatelessWidget {
         } else if (state.authFailureOrSuccess == AuthFailureOrSuccess.invalidEmailAndPassword()) {
           showSnackBar(context, SnackBar(
             backgroundColor: Colors.red,
-            content: Text('InvalidEmailAndPassword'),
+            content: Text('Invalid Email And Password'),
           ));
         } else if (state.authFailureOrSuccess == AuthFailureOrSuccess.serverError()) {
           showSnackBar(context, SnackBar(
@@ -47,45 +48,43 @@ class SignUpForm extends StatelessWidget {
             ),
           ),
           child: Form(
-            autovalidate: context.bloc<SignUpFormBloc>().state.showErrorMessages,
+            autovalidate: state.showErrorMessages,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+              children: <Widget>[
                 Column(
                   children: <Widget>[
                     TextFormField(
-                      autofocus: false,
                       decoration: const InputDecoration(
                         prefixIcon: Icon(Icons.email),
                         labelText: 'Email address',
                       ),
                       autocorrect: false,
+                      autofocus: false,
                       onChanged: (value) => context
                           .bloc<SignUpFormBloc>()
                           .add(SignUpFormEvent.emailChange(value)),
                       validator: (_) => validateEmailAddress(
-                              context.bloc<SignUpFormBloc>().state.emailAddress)
+                          context.bloc<SignUpFormBloc>().state.emailAddress)
                           ? null
                           : "Invalid Email",
                     ),
-                    const SizedBox(height: 10),
                     TextFormField(
-                      autofocus: false,
                       decoration: const InputDecoration(
                         prefixIcon: Icon(Icons.lock),
                         labelText: 'Password',
                       ),
                       autocorrect: false,
+                      autofocus: false,
+                      obscureText: true,
                       onChanged: (value) => context
                           .bloc<SignUpFormBloc>()
                           .add(SignUpFormEvent.passwordChange(value)),
-                      obscureText: true,
                       validator: (_) => validatePassword(
-                              context.bloc<SignUpFormBloc>().state.password)
+                          context.bloc<SignUpFormBloc>().state.password)
                           ? null
                           : 'Short Password',
                     ),
-                    const SizedBox(height: 10),
                   ],
                 ),
                 Column(
@@ -93,12 +92,13 @@ class SignUpForm extends StatelessWidget {
                     FlatButton(
                       onPressed: () {
                         FocusScope.of(context).unfocus();
-                        context.bloc<SignUpFormBloc>().add(
-                            SignUpFormEvent.registerWithEmailAndPassword());
+                        context
+                            .bloc<SignUpFormBloc>()
+                            .add(SignUpFormEvent.registerWithEmailAndPassword());
                       },
-                      color: Color(0xff347AF0),
+                      color: Color(0xff347af0),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
+                        borderRadius: BorderRadius.circular(18),
                         side: BorderSide(
                           color: Color(0xff347af0),
                         ),
@@ -108,7 +108,7 @@ class SignUpForm extends StatelessWidget {
                         height: 40,
                         alignment: Alignment.center,
                         child: Text(
-                          "Let's Get Started",
+                          'Let\'s Get Started',
                           style: TextStyle(
                             color: Colors.white,
                           ),
@@ -135,11 +135,11 @@ class SignUpForm extends StatelessWidget {
                           child: Text(
                             'Login?',
                             style: TextStyle(
-                              color: Color(0xff347AF0),
+                              color: Color(0xff347af0),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                        ),
+                        )
                       ],
                     ),
                   ],
@@ -151,7 +151,6 @@ class SignUpForm extends StatelessWidget {
       },
     );
   }
-
   void showSnackBar(BuildContext context, Widget snackBar) {
     Scaffold.of(context).showSnackBar(snackBar);
   }

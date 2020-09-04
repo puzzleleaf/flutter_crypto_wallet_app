@@ -1,4 +1,5 @@
 import 'package:crypto_wallet/injection.dart';
+import 'package:crypto_wallet/pages/sign_in/sign_in_page.dart';
 import 'package:crypto_wallet/pages/start/start_page.dart';
 import 'package:flutter/material.dart';
 
@@ -20,10 +21,10 @@ class MyApp extends StatelessWidget {
           color: Colors.transparent,
           iconTheme: IconThemeData(
             color: Colors.black,
-          )
+          ),
         )
       ),
-      home: StartPage()
+      home: StartPage(),
     );
   }
 }

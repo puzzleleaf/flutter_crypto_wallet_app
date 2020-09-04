@@ -1,7 +1,5 @@
-
 bool validateEmailAddress(String email) {
-  const emailRegex =
-  r"""^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+""";
+  const emailRegex = "[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+";
 
   if (RegExp(emailRegex).hasMatch(email)) {
     return true;

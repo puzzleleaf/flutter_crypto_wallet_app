@@ -1,52 +1,53 @@
-import 'package:crypto_wallet/pages/start/start_page.dart';
 import 'package:crypto_wallet/utils/items.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WelcomePage extends StatelessWidget {
   final _pageViewController = new PageController(initialPage: 0);
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, width: 375, height: 812, allowFontScaling: false);
-    return SafeArea(
-      child: Scaffold(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
         backgroundColor: Color(0xffe0e9f8),
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0.0,
-          actions: <Widget>[
-            Container(
-              alignment: Alignment.center,
-              width: ScreenUtil().setWidth(45),
-              child: InkWell(
-                onTap: () {},
-                child: Text(
-                  'Skip',
-                  style: TextStyle(
-                    color: Color(0xff347af0),
-                    fontWeight: FontWeight.bold,
-                    fontSize: ScreenUtil().setSp(15),
-                  ),
+        elevation: 0.0,
+        actions: <Widget>[
+          Container(
+            alignment: Alignment.center,
+            width: 45,
+            child: InkWell(
+              onTap: () {},
+              child: Text(
+                'Skip',
+                style: TextStyle(
+                  color: Color(0xff347af0),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
                 ),
               ),
-            )
-          ],
-        ),
-        body: PageView.builder(
+            ),
+          )
+        ],
+      ),
+      body: SafeArea(
+        child: PageView.builder(
           physics: NeverScrollableScrollPhysics(),
           controller: _pageViewController,
           itemBuilder: (context, index) {
             return Column(
               children: <Widget>[
-                Image.asset(
-                  Items.welcomeData[index]['image'],
-                  width: ScreenUtil().setWidth(326),
-                  height: ScreenUtil().setHeight(240),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: Color(0xffe0e9f8),
+                  child: Image.asset(
+                    Items.welcomeData[index]['image'],
+                    width: 326,
+                    height: 250,
+                  ),
                 ),
                 Expanded(
                   child: Container(
-                    width: ScreenUtil().setWidth(375),
+                    width: 375,
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(
@@ -81,7 +82,7 @@ class WelcomePage extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.black,
-                            fontSize: ScreenUtil().setSp(30),
+                            fontSize: 30,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -93,7 +94,7 @@ class WelcomePage extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Color(0xff485068),
-                            fontSize: ScreenUtil().setSp(15),
+                            fontSize: 15,
                           ),
                         ),
                         Spacer(),
@@ -104,11 +105,7 @@ class WelcomePage extends StatelessWidget {
                                   duration: Duration(milliseconds: 500),
                                   curve: Curves.ease);
                             } else {
-                              Navigator.pushReplacement(context, MaterialPageRoute(
-                                builder: (context) {
-                                  return StartPage();
-                                },
-                              ));
+
                             }
                           },
                           color: index != 3
@@ -121,7 +118,7 @@ class WelcomePage extends StatelessWidget {
                             ),
                           ),
                           child: Container(
-                            width: ScreenUtil().setWidth(160),
+                            width: 160,
                             height: 40,
                             alignment: Alignment.center,
                             child: Text(
@@ -130,7 +127,7 @@ class WelcomePage extends StatelessWidget {
                                 color: index != 3
                                     ? Color(0xff347af0)
                                     : Colors.white,
-                                fontSize: ScreenUtil().setSp(16),
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),

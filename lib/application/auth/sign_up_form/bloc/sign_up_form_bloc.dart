@@ -1,12 +1,9 @@
-import 'dart:async';
-
-import 'package:bloc/bloc.dart';
 import 'package:crypto_wallet/domain/auth/i_auth_facade.dart';
 import 'package:crypto_wallet/domain/core/value_validators.dart';
 import 'package:crypto_wallet/infrastructure/auth/auth_failure_or_success.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:meta/meta.dart';
 
 part 'sign_up_form_event.dart';
 
@@ -21,23 +18,21 @@ class SignUpFormBloc extends Bloc<SignUpFormEvent, SignUpFormState> {
   SignUpFormBloc(this._authFacade) : super(SignUpFormState.initial());
 
   @override
-  Stream<SignUpFormState> mapEventToState(
-    SignUpFormEvent event,
-  ) async* {
+  Stream<SignUpFormState> mapEventToState(SignUpFormEvent event) async* {
     yield* event.map(
-      emailChange: (e) async* {
+      emailChange: (event) async* {
         yield state.copyWith(
-          emailAddress: e.email,
+          emailAddress: event.email,
           authFailureOrSuccess: AuthFailureOrSuccess.none(),
         );
       },
-      passwordChange: (e) async* {
+      passwordChange: (event) async* {
         yield state.copyWith(
-          password: e.password,
+          password: event.password,
           authFailureOrSuccess: AuthFailureOrSuccess.none(),
         );
       },
-      registerWithEmailAndPassword: (e) async* {
+      registerWithEmailAndPassword: (event) async* {
         final String email = state.emailAddress;
         final String password = state.password;
 
@@ -49,7 +44,9 @@ class SignUpFormBloc extends Bloc<SignUpFormEvent, SignUpFormState> {
           );
 
           var result = await _authFacade.registerWithEmailAndPassword(
-              emailAddress: email, password: password);
+            emailAddress: email,
+            password: password,
+          );
 
           yield state.copyWith(
             isSubmitting: false,
