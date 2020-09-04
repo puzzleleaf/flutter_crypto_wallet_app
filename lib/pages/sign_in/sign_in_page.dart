@@ -9,8 +9,9 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffE0E9F8),
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Color(0xffE0E9F8),
         centerTitle: true,
         title: Text(
           'Welcome Back!',
@@ -24,6 +25,7 @@ class SignInPage extends StatelessWidget {
       body: SafeArea(
         child: Container(
           width: MediaQuery.of(context).size.width,
+          color: Color(0xffE0E9F8),
           child: CustomScrollView(
             reverse: true,
             slivers: [

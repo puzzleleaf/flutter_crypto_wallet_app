@@ -1,7 +1,5 @@
-import 'package:crypto_wallet/application/auth/sign_in_form/bloc/sign_in_form_bloc.dart';
 import 'package:crypto_wallet/application/auth/sign_up_form/bloc/sign_up_form_bloc.dart';
 import 'package:crypto_wallet/injection.dart';
-import 'package:crypto_wallet/pages/sign_in/widgets/sign_in_form.dart';
 import 'package:crypto_wallet/pages/sign_up/widgets/sign_up_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,8 +9,9 @@ class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffE0E9F8),
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Color(0xffE0E9F8),
         centerTitle: true,
         title: Text(
           'Create Account',
@@ -25,6 +24,7 @@ class SignUpPage extends StatelessWidget {
       ),
       body: SafeArea(
         child: Container(
+          color: Color(0xffE0E9F8),
           width: MediaQuery.of(context).size.width,
           child: CustomScrollView(
             reverse: true,
