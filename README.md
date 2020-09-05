@@ -13,15 +13,15 @@ https://youtu.be/9w7_WdtvAqM
 [![Flutter Welcome Page](./readme/youtube2.png)](https://youtu.be/9w7_WdtvAqM)
 
 #### Reference
-Design   
+##### Design   
 https://whollet.io/
 
-Code
+##### Code
 https://bit.ly/3bvMXAB
 
 
 ### Packages
-*flutter_bloc
+* flutter_bloc
 https://pub.dev/packages/flutter_bloc
 
 * injectable
